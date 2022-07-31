@@ -1,18 +1,30 @@
+import moment from 'moment';
 import React, { Component } from 'react'
 
 export default class Newsitem extends Component {
 
     render() {
-        let { title, description,urlToImage,url } = this.props;
+        let { title, description,urlToImage,url,publishedAt ,author} = this.props;
+        title = title || 'No Title';
+        description = description || 'No Description';
+        urlToImage = urlToImage || 'https://via.placeholder.com/150';
+        url = url || '/';
+        author = author || 'No Author';
+        publishedAt = publishedAt || moment().format('MMMM Do YYYY');
+
         return (
            
-                <div className="col-lg-4">
-                    <div className="card" style={{ width: '18rem' }}>
-                        <img src={urlToImage} className="card-img-top" alt="..." height="161" />
-                        <div className="card-body" style={{height:'300px'}}>
-                            <h5 className="card-title">{title}</h5>
-                            <p className="card-text">{description}</p>
-                            <a href={`/getNewsDetail/${url}`} className="btn btn-primary">Get detail</a>
+                <div className="col-lg-4 mt-5">
+                    <div className="card">
+                        <img src={urlToImage} className="card-img-top" alt="..." height="250" />
+                     
+                        <div className="card-body" >
+                        <small className="badge badge-primary bg-dark my-2" style={{"fontSize":"10px"}}>{ moment( publishedAt ).format('MMMM Do YYYY hh:mm:ss') }</small> 
+                        <small className="badge badge-primary bg-dark my-2 m-2" style={{"fontSize":"10px"}}>Source: { author }</small>
+
+                            <h5 className="card-title">{title.substring(0,50) + '...' }</h5>
+                            <p className="card-text">{description.substring(0,100) + '...' }</p>
+                            <a href={`${url}`} className="btn btn-primary">Get detail</a>
                         </div>
                     </div>
                 </div>
